@@ -13,10 +13,19 @@ public class ExamplePage extends BasePage {
     @FindBy(name="q")
     WebElement inputQ;
 
-    public ExamplePage(WebDriver driver){
+    @FindBy(xpath="//*[contains(text(), 'I agree')]")
+    WebElement agreeButton;
+
+    public ExamplePage(WebDriver driver) throws InterruptedException {
         super(driver);
         this.driver= driver;
         PageFactory.initElements(driver, this);
+
+        agreeButton.click();
+
+        if(agreeButton.isDisplayed()) {
+            agreeButton.click();
+        }
     }
 
 

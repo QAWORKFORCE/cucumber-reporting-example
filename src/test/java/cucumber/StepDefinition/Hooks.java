@@ -17,6 +17,9 @@ public class Hooks {
 
     public static WebDriver driver;
     public Scenario scenario;
+
+    private WebDriverManager wdm = WebDriverManager.chromedriver().browserInDocker().enableRecording();
+
     @Before
     /**
      * Delete all cookies at the start of each scenario to avoid
@@ -24,8 +27,8 @@ public class Hooks {
      */
     public void openBrowser(Scenario scenario){
         this.scenario = scenario;
-        WebDriverManager.chromedriver().setup();
-        driver = WebDriverFactory.createWebDriver();
+        driver = wdm.create();
+
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //driver = new ChromeDriver();
     }
@@ -44,7 +47,9 @@ public class Hooks {
                 System.err.println(somePlatformsDontSupportScreenshots.getMessage());
             }
         }
-        driver.quit();
+        wdm.quit();
+        //            recordingFile.delete();
+
     }
 
     @AfterStep

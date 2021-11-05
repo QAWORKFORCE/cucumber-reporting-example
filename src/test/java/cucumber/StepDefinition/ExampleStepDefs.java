@@ -16,7 +16,7 @@ public class ExampleStepDefs {
     }
 
     @Given("i am on google search page")
-    public void i_am_on_google_search_page() {
+    public void i_am_on_google_search_page() throws InterruptedException {
         driver.get(URL_GOOGLE);
         examplePage = new ExamplePage(driver);
     }
